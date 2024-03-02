@@ -50,16 +50,16 @@ public class InputManager implements InputManagerInterface {
 
     @Override
     public boolean getKey(String key) {
-        return keyboard.contains(key);
+        return keyboard.contains(key.toUpperCase());
     }
 
     @Override
     public boolean keyPressed(String key) {
-        return keyboard.contains(key);
+        return keyboard.contains(key.toUpperCase());
     }
 
     @Override
     public boolean keyReleased(String key) {
-        return !keyboard.contains(key);
+        return !keyboard.contains(key.toUpperCase());
     }
 }
