@@ -1,12 +1,15 @@
-package cz.cvut.fel.zavadmak.core;
+package cz.cvut.fel.zavadmak.magic_adventure.core;
 
-import cz.cvut.fel.zavadmak.core.physics.Collider2D;
-import cz.cvut.fel.zavadmak.core.utils.Vector;
-import cz.cvut.fel.zavadmak.core.material.Material;
-import cz.cvut.fel.zavadmak.core.physics.Collider;
-import org.jetbrains.annotations.NotNull;
+import cz.cvut.fel.zavadmak.magic_adventure.core.physics.Collider2D;
+import cz.cvut.fel.zavadmak.magic_adventure.core.utils.Vector;
+import cz.cvut.fel.zavadmak.magic_adventure.core.material.Material;
+import cz.cvut.fel.zavadmak.magic_adventure.core.physics.Collider;
 
 public abstract class GameObject {
+    /**
+     * The game object name
+     */
+    protected String name;
 
     /**
      * Position in world
@@ -28,11 +31,18 @@ public abstract class GameObject {
         collider = new Collider2D(0, 0, 0, 0);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Material getMaterial() {
         return material;
     }
 
-    @NotNull
     public void applyMaterial(Material m) {
         this.material = m;
     }

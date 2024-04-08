@@ -1,6 +1,6 @@
-package cz.cvut.fel.zavadmak.core.factory;
+package cz.cvut.fel.zavadmak.magic_adventure.core.factory;
 
-import cz.cvut.fel.zavadmak.core.utils.Vector;
+import cz.cvut.fel.zavadmak.magic_adventure.core.utils.Vector;
 
 public interface Movable {
 

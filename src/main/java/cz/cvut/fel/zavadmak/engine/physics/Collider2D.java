@@ -1,4 +1,4 @@
-package cz.cvut.fel.zavadmak.core.physics;
+package cz.cvut.fel.zavadmak.magic_adventure.core.physics;
 
 public class Collider2D extends Collider {
     private double width;
