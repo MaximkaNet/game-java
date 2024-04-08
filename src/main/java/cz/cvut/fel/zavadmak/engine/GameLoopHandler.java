@@ -1,6 +1,6 @@
-package cz.cvut.fel.zavadmak.core;
+package cz.cvut.fel.zavadmak.magic_adventure.core;
 
-import cz.cvut.fel.zavadmak.World;
+import cz.cvut.fel.zavadmak.magic_adventure.World;
 import javafx.animation.AnimationTimer;
 
 public class GameLoopHandler extends AnimationTimer {

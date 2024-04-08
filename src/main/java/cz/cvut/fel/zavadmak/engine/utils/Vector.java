@@ -1,4 +1,4 @@
-package cz.cvut.fel.zavadmak.core.utils;
+package cz.cvut.fel.zavadmak.magic_adventure.core.utils;
 
 public class Vector {
     private double x;
