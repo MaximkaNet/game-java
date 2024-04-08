@@ -1,9 +1,9 @@
-package cz.cvut.fel.zavadmak.magic_adventure.core;
+package cz.cvut.fel.zavadmak.engine;
 
-import cz.cvut.fel.zavadmak.magic_adventure.core.physics.Collider2D;
-import cz.cvut.fel.zavadmak.magic_adventure.core.utils.Vector;
+import cz.cvut.fel.zavadmak.engine.physics.Collider;
 import cz.cvut.fel.zavadmak.magic_adventure.core.material.Material;
-import cz.cvut.fel.zavadmak.magic_adventure.core.physics.Collider;
+import cz.cvut.fel.zavadmak.engine.utils.Vector;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject {
     /**
@@ -17,18 +17,17 @@ public abstract class GameObject {
     protected Vector worldPos;
 
     /**
-     * The object collider
-     */
-    protected Collider collider;
-
-    /**
      * The object material
      */
     protected Material material;
 
+    /**
+     * The object collider
+     */
+    protected Collider collider;
+
     public GameObject() {
         worldPos = new Vector(0, 0);
-        collider = new Collider2D(0, 0, 0, 0);
     }
 
     public String getName() {
@@ -67,7 +66,15 @@ public abstract class GameObject {
         worldPos.set(x, y);
     }
 
-    public Collider getCollider() {
-        return collider;
-    }
+    /**
+     * Update method for game object
+     * @param deltaTime time from last update
+     */
+    public abstract void update(long deltaTime);
+
+    /**
+     * Draw method for game object
+     * @param gc GraphicsContext
+     */
+    public abstract void draw(GraphicsContext gc);
 }
