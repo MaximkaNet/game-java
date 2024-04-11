@@ -1,0 +1,29 @@
+{
+  "chests": [
+    {
+      "name": "chest-mountain", // id
+      "is_opened": false,
+      "world_position": {
+        "x": 0,
+        "y": 0
+      },
+      "inventory": {
+        "name": "Chest 1 inventory",
+        "items": [
+          {
+            "name": "Inventory item example",
+            "type": "item",
+            "count": 2,
+            "stackable": true
+          },
+          {
+            "name": "Inventory item 2 example",
+            "type": "item",
+            "count": 1,
+            "stackable": false
+          }
+        ]
+      }
+    }
+  ]
+}
