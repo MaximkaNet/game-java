@@ -1,9 +1,8 @@
 package cz.cvut.fel.zavadmak.engine;
 
+import cz.cvut.fel.zavadmak.engine.material.Material;
 import cz.cvut.fel.zavadmak.engine.physics.Collider;
-import cz.cvut.fel.zavadmak.magic_adventure.core.material.Material;
 import cz.cvut.fel.zavadmak.engine.utils.Vector;
-import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject {
     /**
@@ -65,16 +64,4 @@ public abstract class GameObject {
     public void setWorldPosition(double x, double y) {
         worldPos.set(x, y);
     }
-
-    /**
-     * Update method for game object
-     * @param deltaTime time from last update
-     */
-    public abstract void update(long deltaTime);
-
-    /**
-     * Draw method for game object
-     * @param gc GraphicsContext
-     */
-    public abstract void draw(GraphicsContext gc);
 }
