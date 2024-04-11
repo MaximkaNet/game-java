@@ -1,6 +1,6 @@
 package cz.cvut.fel.zavadmak.magic_adventure.domain.weapon;
 
-import cz.cvut.fel.zavadmak.engine.Direction;
+import cz.cvut.fel.zavadmak.engine.utils.Direction;
 import cz.cvut.fel.zavadmak.engine.GameObject;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.item.Item;
 
