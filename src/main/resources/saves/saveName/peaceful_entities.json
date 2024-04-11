@@ -1,0 +1,11 @@
+{
+  "peaceful_entities": [
+    {
+      "name": "Smith",
+      "world_position": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}
