@@ -35,6 +35,8 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>11</release>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -47,7 +49,8 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>cz.cvut.fel.zavadmak.App</mainClass>
+                            <mainClass>cz.cvut.fel.zavadmak.magic_adventure.MagicAdventure</mainClass>
+<!--                            <mainClass>cz.cvut.fel.zavadmak.editor.EditorWindow</mainClass>-->
                         <!-- <commandlineArgs></commandlineArgs>-->
                         </configuration>
                     </execution>
