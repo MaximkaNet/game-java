@@ -14,10 +14,29 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 public class WorldController extends AnimationTimer implements ViewController {
+    /**
+     * Input manager instance
+     */
     private final InputManager inputManager = InputManager.getInstance();
+
+    /**
+     * Delta time between new time and last time
+     */
     private long deltaTime = 0;
+
+    /**
+     * Last update time
+     */
     protected long lastTime = 0;
+
+    /**
+     * World wrapper (model).
+     */
     private final World theWorld = new World();
+
+    /**
+     * Main graphics context
+     */
     private GraphicsContext graphicsContext;
 
     public WorldController() {
@@ -104,6 +123,11 @@ public class WorldController extends AnimationTimer implements ViewController {
         gc.drawImage(theWorld.getPlayer().getMaterial(), theWorld.getPlayer().getWorldX(), theWorld.getPlayer().getWorldY());
     }
 
+    /**
+     * Clear graphics context
+     *
+     * @param gc GraphicsContext
+     */
     private void clearGC(GraphicsContext gc) {
         gc.setFill(Color.SILVER);
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());

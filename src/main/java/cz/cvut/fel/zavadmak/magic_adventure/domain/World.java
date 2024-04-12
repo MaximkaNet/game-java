@@ -9,6 +9,9 @@ import java.util.Map;
 
 public class World {
 
+    /**
+     * The player instance
+     */
     private Player player;
 
     /**
@@ -39,10 +42,21 @@ public class World {
         layers.put(Layer.ENVIRONMENT, new ArrayList<>());
     }
 
+    /**
+     * Get world layers
+     *
+     * @return Map
+     */
     public Map<Layer, ArrayList<GameObject>> getLayers() {
         return layers;
     }
 
+    /**
+     * Create and set a new player
+     *
+     * @param nickname The player nickname
+     * @param worldPos The player world position
+     */
     public void setPlayer(String nickname, Vector worldPos) {
         player = new Player(nickname);
         player.setWorldPosition(worldPos.getX(), worldPos.getY());
