@@ -65,9 +65,14 @@ public class World {
     /**
      * Set player
      *
-     * @param player The player intance
+     * @param player The player instance
      */
     public void setPlayer(Player player) {
+        if(player == null) {
+            System.err.println("Player if null");
+            setPlayer("default", new Vector(0,0));
+            return;
+        }
         this.player = player;
     }
 
