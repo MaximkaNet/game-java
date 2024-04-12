@@ -4,14 +4,21 @@ import cz.cvut.fel.zavadmak.engine.GameObject;
 import cz.cvut.fel.zavadmak.engine.ViewController;
 import cz.cvut.fel.zavadmak.engine.input.InputManager;
 import cz.cvut.fel.zavadmak.engine.material.Material;
+import cz.cvut.fel.zavadmak.engine.utils.JSONLoader;
+import cz.cvut.fel.zavadmak.magic_adventure.domain.Player;
+import cz.cvut.fel.zavadmak.magic_adventure.helpers.PlayerMeta;
+import cz.cvut.fel.zavadmak.magic_adventure.helpers.SaveHelper;
 import cz.cvut.fel.zavadmak.engine.utils.Vector;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.World;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.block.Grass;
+import cz.cvut.fel.zavadmak.engine.scenario.ScenarioHelper;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class WorldController extends AnimationTimer implements ViewController {
     /**
@@ -65,25 +72,84 @@ public class WorldController extends AnimationTimer implements ViewController {
     }
 
     /**
-     * Load world from saves folder
+     * Load world from scenarios folder. It is a model of the world.
      *
-     * @param saveName The save folder name
+     * @param scenarioName The save folder name
      */
-    public void loadWorld(String saveName) {
-        theWorld.setPlayer("nickname", new Vector(0, 0));
-        Material playerMaterial = new Material("/assets/actor/Hero.png", 32, 32, true, true);
-        theWorld.getPlayer().applyMaterial(playerMaterial);
-        // Get layer from world
-        List<GameObject> bgLayer = theWorld.getLayer(World.Layer.BACKGROUND);
-        // Get material
-        Material grassMaterial = new Material("/assets/environment/floor/grass.png", 32, 32, true, true);
-        // Add game objects to layer
-        for (int i = 0; i < 32 * 15; i += 32) {
-            for (int j = 0; j < 32 * 15; j += 32) {
-                Grass object = new Grass(i, j);
-                object.applyMaterial(grassMaterial);
-                bgLayer.add(object);
+    public void loadWorld(String scenarioName, String part) {
+        String scenariosDir = "scenarios";
+        ScenarioHelper scenarioHelper = new ScenarioHelper(scenariosDir, scenarioName);
+        if (!scenarioHelper.loadPart(part)) {
+            System.err.println("Scenario part " + part + " is not loaded");
+            return;
+        }
+        // 1. Load layers
+        scenarioHelper.getLayers().forEach((Object object) -> {
+            // Convert object to JSON object
+            JSONObject jsonLayer = (JSONObject) object;
+            // Get the world layer
+            ArrayList<GameObject> worldLayer = theWorld.getLayer(World.Layer.valueOf(jsonLayer.getString("name").toUpperCase()));
+            // Get asset
+            JSONObject asset = jsonLayer.getJSONObject("asset");
+            // Get path to asset
+            String assetPath = asset.getString("path");
+            // Get asset resolution
+            double width = 32, height = 32;
+            if (asset.has("resolution")) {
+                JSONObject assetResolution = asset.getJSONObject("resolution");
+                width = assetResolution.getDouble("width");
+                height = assetResolution.getDouble("height");
             }
+            // Load asset
+            Material material = new Material(assetPath, width, height, true, true);
+            // Add new instances of asset to world layer
+            JSONArray positions = jsonLayer.getJSONArray("positions");
+            positions.forEach((positionObject) -> {
+                // Get asset world position
+                JSONObject assetWorldPosition = (JSONObject) positionObject;
+                double assetWorldX = assetWorldPosition.getDouble("x");
+                double assetWorldY = assetWorldPosition.getDouble("y");
+                Grass grassBlock = new Grass(assetWorldX, assetWorldY);
+                grassBlock.applyMaterial(material);
+                // Add block to the world layer
+                worldLayer.add(grassBlock);
+            });
+        });
+        // 2. Process spawn points
+        // ...
+        // 3. Load save ... (maybe from entry application point)
+    }
+
+    /**
+     * Load save
+     *
+     * @param saveName The save name
+     */
+    public String loadSave(String saveName) throws Exception {
+        String savesDir = "saves";
+        SaveHelper saveHelper = new SaveHelper(savesDir, saveName);
+        if (!saveHelper.load()) {
+            throw new Exception("Save is not loaded");
+        }
+        // Get player data
+        PlayerMeta playerMeta = saveHelper.getPlayer();
+        // Set player data
+        Player worldPlayer = theWorld.getPlayer();
+        worldPlayer.setWorldPosition(playerMeta.getWorldPosition());
+        return playerMeta.getScenarioPart();
+    }
+
+    /**
+     * Temporary method
+     */
+    public void loadPlayer() {
+        try {
+            JSONObject jsonPlayer = JSONLoader.load("config/player.json");
+            theWorld.setPlayer(jsonPlayer.getString("nickname"), new Vector(0, 0));
+            Material playerMaterial = new Material("assets/actor/Hero.png", 32, 32, true, true);
+            theWorld.getPlayer().applyMaterial(playerMaterial);
+        } catch (Exception e) {
+            // logger ...
         }
     }
 
