@@ -62,6 +62,15 @@ public class World {
         player.setWorldPosition(worldPos.getX(), worldPos.getY());
     }
 
+    /**
+     * Set player
+     *
+     * @param player The player intance
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public Player getPlayer() {
         return player;
     }
