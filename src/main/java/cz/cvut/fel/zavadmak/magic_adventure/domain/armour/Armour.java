@@ -8,7 +8,14 @@ public abstract class Armour {
         this.usage = usage;
     }
 
+    /**
+     * UI item icon
+     */
     protected Material itemIcon;
+
+    /**
+     * Sprite material
+     */
     protected Material material;
 
     /**
@@ -18,16 +25,27 @@ public abstract class Armour {
 
     /**
      * Get usage number
+     *
      * @return usage
      */
     public int getUsage() {
         return usage;
     }
 
+    /**
+     * Get sprite material
+     *
+     * @return Material
+     */
     public Material getMaterial() {
         return material;
     }
 
+    /**
+     * Get ui item icon
+     *
+     * @return Material
+     */
     public Material getItemIcon() {
         return itemIcon;
     }
@@ -39,6 +57,7 @@ public abstract class Armour {
 
     /**
      * Repair armour
+     *
      * @param count Number of armour units repaired
      */
     abstract public void repair(int count);

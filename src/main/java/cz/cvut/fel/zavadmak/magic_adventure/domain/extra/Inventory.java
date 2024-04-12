@@ -42,12 +42,13 @@ public class Inventory {
 
     /**
      * Check item if exists in inventory items using equals method
+     *
      * @param item Item to check
      * @return TRUE if contains in inventory items, FALSE otherwise
      */
     public boolean contains(Item item) {
-        for (Item i: items) {
-            if(i.equals(item)) {
+        for (Item i : items) {
+            if (i.equals(item)) {
                 return true;
             }
         }

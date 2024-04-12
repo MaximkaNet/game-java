@@ -3,16 +3,22 @@ package cz.cvut.fel.zavadmak.magic_adventure.views;
 import cz.cvut.fel.zavadmak.engine.ViewController;
 import cz.cvut.fel.zavadmak.magic_adventure.ViewManager;
 import cz.cvut.fel.zavadmak.magic_adventure.controllers.WorldController;
+import cz.cvut.fel.zavadmak.magic_adventure.views.components.HealthPoints;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public final class WorldView extends Scene implements View {
+    /**
+     * Reference to view manager
+     */
     private ViewManager viewManagerRef;
 
     /**
@@ -25,10 +31,12 @@ public final class WorldView extends Scene implements View {
      */
     private final String title = "Magic Adventure";
 
+    /**
+     * The canvas for rendering
+     */
     private final Canvas renderProvider = new Canvas();
-    private final HBox healthPoints = new HBox();
-    private final VBox tasks = new VBox();
-    private final AnchorPane inventoryManagementPanel = new AnchorPane();
+    private final HealthPoints healthPoints = new HealthPoints("assets/interface/hp.png", 10);
+    private final BorderPane worldUI = new BorderPane();
 
     public WorldView(WorldController controller) {
         // Init root node
@@ -36,17 +44,13 @@ public final class WorldView extends Scene implements View {
         controllerRef = controller;
         // Get root node from this view
         Group root = (Group) getRoot();
-        Button goToMenu = new Button("Go to menu");
         root.getChildren().add(renderProvider);
-        root.getChildren().add(goToMenu);
+        root.getChildren().add(worldUI);
 
-        goToMenu.setOnAction((event) -> {
-            try {
-                viewManagerRef.setCurrentView(ViewList.START.getView());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        worldUI.autosize();
+        worldUI.setLeft(healthPoints);
+        healthPoints.addPoints(10);
+        worldUI.setPadding(new Insets(20));
 
         setSizeHandlersForRenderProvider();
     }
@@ -69,6 +73,10 @@ public final class WorldView extends Scene implements View {
         });
     }
 
+    /**
+     * Get render provider (Canvas)
+     * @return Canvas
+     */
     public Canvas getRenderProvider() {
         return renderProvider;
     }
