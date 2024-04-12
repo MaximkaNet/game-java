@@ -8,7 +8,7 @@ public abstract class GameObject {
     /**
      * The game object name
      */
-    protected String name;
+    private final String name;
 
     /**
      * Position in world
@@ -25,7 +25,8 @@ public abstract class GameObject {
      */
     protected Collider collider;
 
-    public GameObject() {
+    public GameObject(String name) {
+        this.name = name;
         worldPos = new Vector(0, 0);
     }
 
@@ -33,9 +34,9 @@ public abstract class GameObject {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public Material getMaterial() {
         return material;
@@ -63,5 +64,8 @@ public abstract class GameObject {
 
     public void setWorldPosition(double x, double y) {
         worldPos.set(x, y);
+    }
+    public void setWorldPosition(Vector pos) {
+        this.worldPos = pos;
     }
 }

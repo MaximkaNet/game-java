@@ -7,12 +7,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Smith extends GameObject {
+
+    /**
+     * The key fragments
+     */
     private final Map<Key.Fragment, Key> fragments = new HashMap<>();
 
-    private final String nickname;
+    /**
+     * The smith display name
+     */
+    private final String displayName;
 
     public Smith(String nickname) {
-        this.nickname = nickname;
+        super("smith");
+        this.displayName = nickname;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     /**
@@ -41,6 +53,7 @@ public class Smith extends GameObject {
 
     /**
      * Checks fragments using containsKey function
+     *
      * @return TRUE if fragments enough, FALSE otherwise
      */
     public boolean hasEnoughFragments() {

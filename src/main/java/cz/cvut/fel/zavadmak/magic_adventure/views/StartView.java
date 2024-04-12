@@ -18,8 +18,14 @@ public final class StartView extends Scene implements View {
      */
     private ViewManager viewManagerRef;
 
+    /**
+     * Reference to controller
+     */
     private StartController controllerRef;
 
+    /**
+     * The view title
+     */
     private final String title = "Magic adventure";
 
     Button newGameButton = new Button("New game");

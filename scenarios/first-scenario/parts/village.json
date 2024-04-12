@@ -1,0 +1,105 @@
+{
+  "spawn_points": [
+    {
+      "who": "player",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "who": "smith",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "layers": [
+    {
+      "id": "1",
+      "name": "background",
+      "asset": {
+        "path": "assets/environment/floor/grass.png",
+        "resolution": {
+          "width": 32,
+          "height": 32
+        }
+      },
+      "positions": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 32,
+          "y": 0
+        },
+        {
+          "x": 64,
+          "y": 0
+        },
+        {
+          "x": 96,
+          "y": 0
+        },
+        {
+          "x": 128,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "background",
+      "asset": {
+        "path": "assets/environment/tree/tree1.png",
+        "resolution": {
+          "width": 32,
+          "height": 32
+        }
+      },
+      "positions": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 32,
+          "y": 32
+        },
+        {
+          "x": 64,
+          "y": 32
+        },
+        {
+          "x": 96,
+          "y": 32
+        },
+        {
+          "x": 128,
+          "y": 32
+        }
+      ]
+    }
+  ],
+  "chests": [
+    {
+      "name": "ch1",
+      "type": "small",
+      "inventory": [
+        {
+          "name": "key",
+          "fragment": "first"
+        },
+        {
+          "name": "weapon_magic_stuff"
+        }
+      ],
+      "world_position": {
+        "x": 1,
+        "y": 1
+      }
+    }
+  ]
+}

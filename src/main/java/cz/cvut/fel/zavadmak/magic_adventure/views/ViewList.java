@@ -3,6 +3,9 @@ package cz.cvut.fel.zavadmak.magic_adventure.views;
 import cz.cvut.fel.zavadmak.magic_adventure.controllers.StartController;
 import cz.cvut.fel.zavadmak.magic_adventure.controllers.WorldController;
 
+/**
+ * The list of views
+ */
 public enum ViewList {
     /**
      * Start view

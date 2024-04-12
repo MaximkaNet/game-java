@@ -51,6 +51,7 @@ public class Item {
 
     /**
      * Get item image
+     *
      * @return Image if is set, null otherwise
      */
     public Material getMaterial() {

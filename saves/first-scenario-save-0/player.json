@@ -1,0 +1,16 @@
+{
+  "part": "village",
+  "world_position": {
+    "x": 0,
+    "y": 0
+  },
+  "hp": 10,
+  "inventory": [],
+  "armoury_set": {
+    "head": {},
+    "cloak": {}
+  },
+  "current_weapon": {
+    "name": "weapon_magic_stuff"
+  }
+}

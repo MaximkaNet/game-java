@@ -16,7 +16,7 @@ public class Door extends Block {
     private DoorState state = DoorState.CLOSE;
 
     public Door() {
-        super();
+        super("door");
     }
 
     public boolean isOpen() {
@@ -37,6 +37,7 @@ public class Door extends Block {
 
     /**
      * Set door statement
+     *
      * @param state The door statement
      */
     public void setState(DoorState state) {
