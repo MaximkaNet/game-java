@@ -20,4 +20,8 @@ public class Enemy extends GameObject {
      * The inventory
      */
     private Inventory inventory;
+
+    public Enemy() {
+        super("enemy");
+    }
 }

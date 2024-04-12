@@ -14,7 +14,7 @@ public class Chest extends Block {
     private Inventory inventory;
 
     public Chest() {
-        super();
+        super("chest");
     }
 
     /**
