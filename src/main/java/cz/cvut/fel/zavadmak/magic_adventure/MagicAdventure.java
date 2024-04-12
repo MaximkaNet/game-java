@@ -31,7 +31,12 @@ public class MagicAdventure extends Application {
         WorldView worldView = (WorldView) ViewList.WORLD.getView();
         // Initialize world controller
         WorldController worldController = (WorldController) ViewList.WORLD.getView().getControllerRef();
-        worldController.loadWorld("example-save");
+        // Load player data
+        worldController.loadPlayer();
+        // Load save data
+        String part = worldController.loadSave("first-scenario-save-0");
+        // Load scenario part from save
+        worldController.loadWorld("first-scenario", part);
         worldController.setGraphicsContext(worldView.getRenderProvider().getGraphicsContext2D());
         // Set current view
         viewManager.setCurrentView(ViewList.WORLD.getView());
