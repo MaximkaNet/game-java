@@ -1,10 +1,8 @@
 package cz.cvut.fel.zavadmak.engine.scenario;
 
+import cz.cvut.fel.zavadmak.engine.utils.JSONLoader;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ScenarioHelper {
     private final String scenariosFolder;
@@ -25,8 +23,7 @@ public class ScenarioHelper {
     public boolean loadMeta() {
         try {
             String pathToMetaFile = scenariosFolder + "/" + scenario + "/meta.json";
-            String fullFileContent = Files.readString(Paths.get(pathToMetaFile));
-            jsonScenarioMeta = new JSONObject(fullFileContent);
+            jsonScenarioMeta = JSONLoader.load(pathToMetaFile);
             return true;
         } catch (Exception e) {
             return false;
@@ -42,8 +39,7 @@ public class ScenarioHelper {
     public boolean loadPart(String part) {
         try {
             String pathToPartFile = scenariosFolder + "/" + scenario + "/parts/" + part + ".json";
-            String fullFileContent = Files.readString(Paths.get(pathToPartFile));
-            jsonScenarioPart = new JSONObject(fullFileContent);
+            jsonScenarioPart = JSONLoader.load(pathToPartFile);
             return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
