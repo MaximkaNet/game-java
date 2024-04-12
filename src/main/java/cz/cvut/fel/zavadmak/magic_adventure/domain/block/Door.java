@@ -37,6 +37,7 @@ public class Door extends Block {
 
     /**
      * Set door statement
+     *
      * @param state The door statement
      */
     public void setState(DoorState state) {

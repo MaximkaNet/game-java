@@ -8,6 +8,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * Main application. Entry point to application
+ */
 public class MagicAdventure extends Application {
 
     @Override

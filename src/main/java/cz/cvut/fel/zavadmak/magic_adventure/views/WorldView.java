@@ -13,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public final class WorldView extends Scene implements View {
+    /**
+     * Reference to view manager
+     */
     private ViewManager viewManagerRef;
 
     /**
@@ -25,6 +28,9 @@ public final class WorldView extends Scene implements View {
      */
     private final String title = "Magic Adventure";
 
+    /**
+     * The canvas for rendering
+     */
     private final Canvas renderProvider = new Canvas();
     private final HBox healthPoints = new HBox();
     private final VBox tasks = new VBox();
@@ -69,6 +75,10 @@ public final class WorldView extends Scene implements View {
         });
     }
 
+    /**
+     * Get render provider (Canvas)
+     * @return Canvas
+     */
     public Canvas getRenderProvider() {
         return renderProvider;
     }
