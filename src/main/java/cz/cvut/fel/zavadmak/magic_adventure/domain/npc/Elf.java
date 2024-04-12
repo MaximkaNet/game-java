@@ -20,4 +20,8 @@ public class Elf extends GameObject {
      * The inventory
      */
     private Inventory inventory;
+
+    public Elf() {
+        super("elf");
+    }
 }

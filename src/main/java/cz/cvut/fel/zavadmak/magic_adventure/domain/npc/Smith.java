@@ -14,12 +14,17 @@ public class Smith extends GameObject {
     private final Map<Key.Fragment, Key> fragments = new HashMap<>();
 
     /**
-     * The nickname
+     * The smith display name
      */
-    private final String nickname;
+    private final String displayName;
 
     public Smith(String nickname) {
-        this.nickname = nickname;
+        super("smith");
+        this.displayName = nickname;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     /**

@@ -11,7 +11,7 @@ public class Player extends GameObject {
     /**
      * Player nickname
      */
-    private final String nickname;
+    private String nickname;
 
     /**
      * The player inventory
@@ -34,8 +34,12 @@ public class Player extends GameObject {
     private final Vector velocity;
 
     public Player(String nickname) {
-        super();
+        this();
         this.nickname = nickname;
+    }
+
+    public Player() {
+        super("player");
         this.velocity = new Vector(0, 0);
     }
 
@@ -61,6 +65,10 @@ public class Player extends GameObject {
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
+    }
+
+    public void setNickname(String nick) {
+        this.nickname = nick;
     }
 
     /**

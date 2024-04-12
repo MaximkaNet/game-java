@@ -22,12 +22,12 @@ public abstract class Weapon extends GameObject {
     protected Item referenceItem;
 
     public Weapon(String name, double coolDown) {
-        this.name = name;
+        super(name);
         this.coolDown = coolDown;
     }
 
     public Weapon(String name, double coolDown, Direction direction, Item referenceItem) {
-        this.name = name;
+        super(name);
         this.coolDown = coolDown;
         this.direction = direction;
         this.referenceItem = referenceItem;

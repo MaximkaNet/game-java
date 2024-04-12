@@ -16,7 +16,7 @@ public class Door extends Block {
     private DoorState state = DoorState.CLOSE;
 
     public Door() {
-        super();
+        super("door");
     }
 
     public boolean isOpen() {
