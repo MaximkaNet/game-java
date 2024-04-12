@@ -1,0 +1,12 @@
+{
+  "progressions": [
+    {
+      "name": "first-scenario",
+      "completed": false,
+      "saves": [
+        "first-scenario-save-0"
+      ],
+      "lastSave": "first-scenario-save-0"
+    }
+  ]
+}

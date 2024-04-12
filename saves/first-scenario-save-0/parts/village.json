@@ -1,0 +1,30 @@
+{
+  "entities": [
+    {
+      "name": "smith",
+      "hp": 10,
+      "worldPos": {},
+      "key_fragments": {
+        "first": false,
+        "second": false,
+        "third": false
+      }
+    }
+  ],
+  "chests": [
+    {
+      "name": "ch1",
+      "type": "small",
+      "inventory": [
+        {
+          "name": "key",
+          "fragment": "first"
+        }
+      ],
+      "world_position": {
+        "x": 1,
+        "y": 1
+      }
+    }
+  ]
+}
