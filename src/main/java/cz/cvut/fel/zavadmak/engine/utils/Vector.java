@@ -4,6 +4,10 @@ public class Vector {
     private double x;
     private double y;
 
+    public Vector() {
+        this(0, 0);
+    }
+
     public Vector(double x, double y) {
         this.x = x;
         this.y = y;
@@ -35,5 +39,20 @@ public class Vector {
     public void multiply(double m) {
         this.x *= m;
         this.y *= m;
+    }
+
+    public static double magnitude(Vector vector) {
+        return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+    }
+
+    public Vector normalized() {
+        double mag = Vector.magnitude(this);
+        if (mag > 0) {
+            // normalized vector
+            return new Vector(x / mag, y / mag);
+        } else {
+            // zero vector
+            return new Vector(0, 0);
+        }
     }
 }
