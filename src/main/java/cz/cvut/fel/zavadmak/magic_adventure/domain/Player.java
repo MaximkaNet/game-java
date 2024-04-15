@@ -75,6 +75,6 @@ public class Player extends GameObject {
      * Move player using velocity
      */
     public void move() {
-        this.getWorldPosition().add(this.velocity);
+        this.getWorldPosition().add(this.velocity.normalized());
     }
 }

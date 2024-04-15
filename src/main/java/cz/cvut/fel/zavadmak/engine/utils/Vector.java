@@ -4,6 +4,11 @@ public class Vector {
     private double x;
     private double y;
 
+    /**
+     * Variable for check magnitude
+     */
+    public final double kEpsilon = 0.00001d;
+
     public Vector() {
         this(0, 0);
     }
@@ -47,7 +52,7 @@ public class Vector {
 
     public Vector normalized() {
         double mag = Vector.magnitude(this);
-        if (mag > 0) {
+        if (mag > kEpsilon) {
             // normalized vector
             return new Vector(x / mag, y / mag);
         } else {
