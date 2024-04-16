@@ -7,22 +7,19 @@ public abstract class Camera {
     /**
      * The game object name
      */
-    protected String name;
+    private final String name;
 
     /**
      * Position in world
      */
     protected Vector worldPos;
 
-    /**
-     * Update method for game object
-     * @param deltaTime time from last update
-     */
-    public abstract void update(long deltaTime);
+    public Camera(String name) {
+        this.name = name;
+        this.worldPos = new Vector();
+    }
 
-    /**
-     * Draw method for game object
-     * @param gc GraphicsContext
-     */
-    public abstract void draw(GraphicsContext gc);
+    public String getName() {
+        return name;
+    }
 }

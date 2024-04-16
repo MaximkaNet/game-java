@@ -33,6 +33,8 @@ public class Player extends GameObject {
      */
     private final Vector velocity;
 
+    private double speed = 5;
+
     public Player(String nickname) {
         this();
         this.nickname = nickname;
@@ -59,7 +61,7 @@ public class Player extends GameObject {
         return armourSet;
     }
 
-    public void changeWeapon(Weapon newWeapon) {
+    public void setCurrentWeapon(Weapon newWeapon) {
         this.currentWeapon = newWeapon;
     }
 
@@ -71,10 +73,28 @@ public class Player extends GameObject {
         this.nickname = nick;
     }
 
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void addMovementX(int direction) {
+        this.velocity.add(direction, 0);
+    }
+
+    public void addMovementY(int direction) {
+        this.velocity.add(0, direction);
+    }
+
     /**
      * Move player using velocity
      */
     public void move() {
-        this.getWorldPosition().add(this.velocity.normalized());
+        Vector normalizedVelocity = this.velocity.normalized();
+        normalizedVelocity.multiply(this.speed);
+        this.getWorldPosition().add(normalizedVelocity);
     }
 }
