@@ -5,6 +5,7 @@ import cz.cvut.fel.zavadmak.engine.ViewController;
 import cz.cvut.fel.zavadmak.engine.input.InputManager;
 import cz.cvut.fel.zavadmak.engine.material.Material;
 import cz.cvut.fel.zavadmak.engine.utils.JSONLoader;
+import cz.cvut.fel.zavadmak.magic_adventure.FollowCamera;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.Player;
 import cz.cvut.fel.zavadmak.magic_adventure.helpers.PlayerMeta;
 import cz.cvut.fel.zavadmak.magic_adventure.helpers.SaveHelper;
@@ -41,6 +42,8 @@ public class WorldController extends AnimationTimer implements ViewController {
      */
     private final World theWorld = new World();
 
+    private final FollowCamera followCamera = new FollowCamera(theWorld.getPlayer());
+
     /**
      * Main graphics context
      */
@@ -56,6 +59,7 @@ public class WorldController extends AnimationTimer implements ViewController {
     @Override
     public void startHandling() {
         if (graphicsContext != null) {
+//            followCamera.setGraphicsContext(graphicsContext);
             super.start();
         } else {
             System.err.println("Please set graphics context before starting");
@@ -148,6 +152,8 @@ public class WorldController extends AnimationTimer implements ViewController {
             theWorld.setPlayer(jsonPlayer.getString("nickname"), new Vector(0, 0));
             Material playerMaterial = new Material("assets/actor/Hero.png", 32, 32, true, true);
             theWorld.getPlayer().applyMaterial(playerMaterial);
+            theWorld.getPlayer().setSpeed(2);
+//            followCamera.follow(theWorld.getPlayer());
         } catch (Exception e) {
             // logger ...
         }
@@ -160,20 +166,22 @@ public class WorldController extends AnimationTimer implements ViewController {
      */
     public void update(long deltaTime) {
         theWorld.getPlayer().getVelocity().set(0, 0);
-        double speed = 3;
         if (inputManager.isKeyDown("W")) {
-            theWorld.getPlayer().getVelocity().add(0, -speed);
+            theWorld.getPlayer().addMovementY(-1);
         }
         if (inputManager.isKeyDown("S")) {
-            theWorld.getPlayer().getVelocity().add(0, speed);
+            theWorld.getPlayer().addMovementY(1);
         }
         if (inputManager.isKeyDown("D")) {
-            theWorld.getPlayer().getVelocity().add(speed, 0);
+            theWorld.getPlayer().addMovementX(1);
         }
         if (inputManager.isKeyDown("A")) {
-            theWorld.getPlayer().getVelocity().add(-speed, 0);
+            theWorld.getPlayer().addMovementX(-1);
         }
+        // Move player
         theWorld.getPlayer().move();
+        // Move camera
+//        followCamera.move(deltaTime);
     }
 
     /**
@@ -183,10 +191,15 @@ public class WorldController extends AnimationTimer implements ViewController {
      */
     public void draw(GraphicsContext gc) {
         clearGC(gc);
+
         theWorld.getLayer(World.Layer.BACKGROUND).forEach((GameObject obj) -> {
-            gc.drawImage(obj.getMaterial(), obj.getWorldX(), obj.getWorldY());
+//            followCamera.render(obj);
+            gc.drawImage(obj.getMaterial(),
+                    obj.getWorldX() * obj.getMaterial().getWidth(),
+                    obj.getWorldY() * obj.getMaterial().getHeight());
         });
         gc.drawImage(theWorld.getPlayer().getMaterial(), theWorld.getPlayer().getWorldX(), theWorld.getPlayer().getWorldY());
+//        followCamera.renderPlayer(theWorld.getPlayer());
     }
 
     /**
