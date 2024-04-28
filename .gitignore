@@ -1,3 +1,5 @@
+scenarios
+
 ### Project temp files
 target/
 !.mvn/wrapper/maven-wrapper.jar

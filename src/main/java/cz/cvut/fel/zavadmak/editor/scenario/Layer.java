@@ -1,6 +1,6 @@
-package cz.cvut.fel.zavadmak.editor.core.scenario;
+package cz.cvut.fel.zavadmak.editor.scenario;
 
-import cz.cvut.fel.zavadmak.editor.core.exception.InvalidLayerException;
+import cz.cvut.fel.zavadmak.editor.exception.InvalidLayerException;
 import cz.cvut.fel.zavadmak.engine.utils.Vector;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +23,10 @@ public class Layer {
         this.asset = asset;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void addPosition(double x, double y) {
         positions.add(new Vector(x, y));
     }
@@ -41,8 +45,14 @@ public class Layer {
     }
 
     public JSONObject toJSONObject() throws InvalidLayerException {
-        if (!isValid() || !asset.isValidPath())
-            throw new InvalidLayerException();
+        if (!asset.exists()) {
+            String reason = "File: " + asset.getPath();
+            reason += System.lineSeparator()+ "Is not found";
+            throw new InvalidLayerException(reason);
+        }
+        else if (!isValid()) {
+            throw new InvalidLayerException("Layers properties is not filled or not valid");
+        }
         JSONObject layer = new JSONObject();
         layer.put("id", id);
         layer.put("name", name);
