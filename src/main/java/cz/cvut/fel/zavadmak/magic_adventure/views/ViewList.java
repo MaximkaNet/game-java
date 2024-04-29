@@ -10,7 +10,7 @@ public enum ViewList {
     /**
      * Start view
      */
-    START(new StartView(new StartController())),
+    START(new StartView("Magic adventure", new StartController())),
 
     /**
      * World view

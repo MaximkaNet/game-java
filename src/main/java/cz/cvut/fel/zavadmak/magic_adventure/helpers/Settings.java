@@ -26,6 +26,10 @@ public class Settings {
         controls.put(Controls.RIGHT, "D");
     }
 
+    public String getPlayerNickname() {
+        return playerNickname;
+    }
+
     public String getControlKey(Controls controlKey) {
         return controls.get(controlKey);
     }
@@ -38,18 +42,24 @@ public class Settings {
      * Load settings from file
      *
      * @param filename the settings file
-     * @throws IOException
+     * @return True if settings are loaded, False otherwise
      */
-    public void load(String filename) throws IOException {
-        JSONObject loaded = JSONLoader.load(filename);
-        JSONObject jsonControls = loaded.getJSONObject("controls");
-        JSONObject jsonPlayer = loaded.getJSONObject("player");
-        playerNickname = jsonPlayer.getString("nickname");
+    public boolean load(String filename) {
+        try {
+            JSONObject loaded = JSONLoader.load(filename);
+            JSONObject jsonControls = loaded.getJSONObject("controls");
+            JSONObject jsonPlayer = loaded.getJSONObject("player");
+            playerNickname = jsonPlayer.getString("nickname");
 
-        controls.put(Controls.UP, jsonControls.getString(Controls.UP.name().toLowerCase()));
-        controls.put(Controls.DOWN, jsonControls.getString(Controls.DOWN.name().toLowerCase()));
-        controls.put(Controls.LEFT, jsonControls.getString(Controls.LEFT.name().toLowerCase()));
-        controls.put(Controls.RIGHT, jsonControls.getString(Controls.RIGHT.name().toLowerCase()));
+            controls.put(Controls.UP, jsonControls.getString(Controls.UP.name().toLowerCase()));
+            controls.put(Controls.DOWN, jsonControls.getString(Controls.DOWN.name().toLowerCase()));
+            controls.put(Controls.LEFT, jsonControls.getString(Controls.LEFT.name().toLowerCase()));
+            controls.put(Controls.RIGHT, jsonControls.getString(Controls.RIGHT.name().toLowerCase()));
+            return true;
+        } catch (Exception e) {
+            setDefault();
+            return false;
+        }
     }
 
     /**

@@ -3,9 +3,13 @@ package cz.cvut.fel.zavadmak.magic_adventure.views;
 import cz.cvut.fel.zavadmak.engine.ViewController;
 import cz.cvut.fel.zavadmak.magic_adventure.ViewManager;
 import cz.cvut.fel.zavadmak.magic_adventure.controllers.StartController;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /**
  * The main page where you can select a new game world,
@@ -26,25 +30,48 @@ public final class StartView extends Scene implements View {
     /**
      * The view title
      */
-    private final String title = "Magic adventure";
+    private String title;
 
-    Button newGameButton = new Button("New game");
-    Button showScenariosButton = new Button("Scenarios");
-    Button settingsButton = new Button("Settings");
-    Button exitButton = new Button("Exit");
+
 
     public StartView(StartController controller) {
-        super(new Group());
+        this("Start", controller);
+    }
+
+    public StartView(String title, StartController controller) {
+        super(new AnchorPane());
+        this.title = title;
         this.controllerRef = controller;
-        Group root = (Group) getRoot();
-        root.getChildren().add(newGameButton);
-        newGameButton.setOnAction((event) -> {
-            try {
-                viewManagerRef.setCurrentView(ViewList.WORLD.getView());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        this.getStylesheets().add("assets/styles/start-view.css");
+        init();
+    }
+
+    public void init() {
+        Button newGameButton = new Button("New game");
+        Button showScenariosButton = new Button("Scenarios");
+        Button settingsButton = new Button("Settings");
+        Button exitButton = new Button("Exit");
+
+        newGameButton.getStyleClass().add("menu__button");
+        showScenariosButton.getStyleClass().add("menu__button");
+        settingsButton.getStyleClass().add("menu__button");
+        exitButton.getStyleClass().add("menu__button");
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(newGameButton, showScenariosButton, settingsButton, exitButton);
+        vBox.setAlignment(Pos.BOTTOM_LEFT);
+
+        AnchorPane.setBottomAnchor(vBox, 40.0);
+        AnchorPane.setLeftAnchor(vBox, 60.0);
+
+        Label title = new Label("Magic adventure");
+        title.getStyleClass().add("menu__title");
+
+        AnchorPane.setTopAnchor(title, 60.0);
+        this.widthProperty().addListener((event) -> {
+            AnchorPane.setLeftAnchor(title, (this.widthProperty().get() / 2) - (title.getWidth() / 2));
         });
+        ((AnchorPane) this.getRoot()).getChildren().addAll(vBox, title);
     }
 
     @Override

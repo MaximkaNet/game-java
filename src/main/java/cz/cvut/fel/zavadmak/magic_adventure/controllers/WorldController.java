@@ -13,6 +13,7 @@ import cz.cvut.fel.zavadmak.engine.utils.Vector;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.World;
 import cz.cvut.fel.zavadmak.magic_adventure.domain.block.Grass;
 import cz.cvut.fel.zavadmak.engine.scenario.ScenarioHelper;
+import cz.cvut.fel.zavadmak.magic_adventure.helpers.Settings;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -20,12 +21,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class WorldController extends AnimationTimer implements ViewController {
+    private static final Logger LOGGER = Logger.getLogger(WorldController.class.getName());
     /**
      * Input manager instance
      */
     private final InputManager inputManager = InputManager.getInstance();
+
+    /**
+     * Game settings
+     */
+    private final Settings settings = new Settings();
 
     /**
      * Delta time between new time and last time
@@ -84,7 +92,7 @@ public class WorldController extends AnimationTimer implements ViewController {
         String scenariosDir = "scenarios";
         ScenarioHelper scenarioHelper = new ScenarioHelper(scenariosDir, scenarioName);
         if (!scenarioHelper.loadPart(part)) {
-            System.err.println("Scenario part " + part + " is not loaded");
+            LOGGER.warning("Scenario part " + part + " is not loaded");
             return;
         }
         // 1. Load layers
@@ -146,16 +154,15 @@ public class WorldController extends AnimationTimer implements ViewController {
     /**
      * Temporary method
      */
-    public void loadPlayer() {
-        try {
-            JSONObject jsonPlayer = JSONLoader.load("config/player.json");
-            theWorld.setPlayer(jsonPlayer.getString("nickname"), new Vector(0, 0));
+    public void loadSettings(String settingsFile) {
+        // Load settings
+        if (settings.load(settingsFile)) {
+            theWorld.setPlayer(settings.getPlayerNickname(), new Vector(0, 0));
             Material playerMaterial = new Material("assets/actor/Hero.png", 32, 32, true, true);
             theWorld.getPlayer().applyMaterial(playerMaterial);
             theWorld.getPlayer().setSpeed(2);
-//            followCamera.follow(theWorld.getPlayer());
-        } catch (Exception e) {
-            // logger ...
+        } else {
+            LOGGER.warning("Settings not loaded");
         }
     }
 
@@ -166,16 +173,16 @@ public class WorldController extends AnimationTimer implements ViewController {
      */
     public void update(long deltaTime) {
         theWorld.getPlayer().getVelocity().set(0, 0);
-        if (inputManager.isKeyDown("W")) {
+        if (inputManager.isKeyDown(settings.getControlKey(Settings.Controls.UP))) {
             theWorld.getPlayer().addMovementY(-1);
         }
-        if (inputManager.isKeyDown("S")) {
+        if (inputManager.isKeyDown(settings.getControlKey(Settings.Controls.DOWN))) {
             theWorld.getPlayer().addMovementY(1);
         }
-        if (inputManager.isKeyDown("D")) {
+        if (inputManager.isKeyDown(settings.getControlKey(Settings.Controls.RIGHT))) {
             theWorld.getPlayer().addMovementX(1);
         }
-        if (inputManager.isKeyDown("A")) {
+        if (inputManager.isKeyDown(settings.getControlKey(Settings.Controls.LEFT))) {
             theWorld.getPlayer().addMovementX(-1);
         }
         // Move player
